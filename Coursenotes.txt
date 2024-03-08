@@ -1,0 +1,1703 @@
+
+%----------------------- C# .NET Core 8 with MS SQL Complete Beginner to Master 2024 ----------------------------------------------%
+
+
+Install List
+Hello, in case you would rather go through this on your own, or if you wanted to skip over the step where we search for these links on Google, you can use the links on this list to install all of the programs we will be using and download the Github repository with all of the source code from the course.
+
+
+
+Visual Studio Code && .NET SDK
+
+https://dotnet.microsoft.com/en-us/download
+
+https://code.visualstudio.com/Download?WT.mc_id=dotnet-35129-website
+
+Azure Data Studio && MS SQL Server
+
+https://learn.microsoft.com/en-us/sql/azure-data-studio/download-azure-data-studio?view=sql-server-ver16
+
+https://www.microsoft.com/en-us/sql-server/sql-server-downloads (Developer Version)
+
+Postman
+
+https://www.postman.com/downloads/
+
+Git Repo
+
+https://github.com/DomTripodi93/DotNetAPICourse
+
+Azure CLI tools
+
+https://learn.microsoft.com/en-us/cli/azure/install-azure-cli
+
+Join our Facebook community group to ask questions or help your fellow students!
+
+https://www.facebook.com/groups/1103892290282526
+
+## Download and running docker azure sql image 
+
+>> docker run -e "ACCEPT_EULA=1" -e "MSSQL_USER=SA" -e "MSSQL_SA_PASSWORD=SQLCONNECT1" -e "MSSQL_PID=Developer" -p 1433:1433 -d --name=sql_connect mcr.microsoft.com/azure-sql-edge
+
+Unable to find image 'mcr.microsoft.com/azure-sql-edge:latest' locally
+latest: Pulling from azure-sql-edge
+f0412dfb1aae: Pull complete
+c62c3fc0300d: Pull complete
+57f13386bc1b: Pull complete
+dcc7b800eec9: Pull complete
+Digest: sha256:902628a8be89e35dfb7895ca31d602974c7bafde4d583a0d0873844feb1c42cf
+Status: Downloaded newer image for mcr.microsoft.com/azure-sql-edge:latest
+e06685a89a1025dd8c7919574cb14364f3fe947afee164a2e02a34a5089e249b
+
+>> docker container ls -a
+>> docker ps
+
+
+
+%--------------------------------------------- Section 1: Introduction -----------------------------------------------------%
+
+## Compile program code;
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects> dotnet new console -n HelloWorld
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects> ls
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\HelloWorld> 
+
+## Run the build compile code;
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\HelloWorld> dotnet run
+Hello, World!
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\HelloWorld> dotnet watch run
+Hello, World! This first C# programs
+
+
+Nuget package source and C# extensions in VS Code
+Hello!
+
+In the next lecture we will make sure that we are all connected to a nuget package source, and 
+get a few extensions installed in VS Code to make sure that intellisense in VS Code will work for you throughout the course.
+
+
+
+First we will check if we already have a nuget source with the following command:
+dotnet nuget list source
+
+Next we will attempt to add the nuget.org source with the following command:
+dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org
+
+For the add source command I will be copying it from the text above, and I suggest that you do the same to avoid typos and save yourself some time.
+
+
+Finally we will open VS Code and install the following extensions
+C#
+
+C# Dev Kit
+
+See you in the next lecture!
+Dominic
+
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects> dotnet nuget list source
+Registered Sources:
+  1.  nuget.org [Enabled]
+      https://api.nuget.org/v3/index.json
+	  
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects> dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org
+
+
+error: The name specified has already been added to the list of available package sources. Provide a unique name.
+
+
+Usage: dotnet nuget add source [arguments] [options]
+
+Arguments:
+  PackageSourcePath  Path to the package source.
+
+Options:
+  -n|--name                       Name of the source.
+  -u|--username                   Username to be used when connecting to an authenticated source.
+  -p|--password                   Password to be used when connecting to an authenticated source.
+  --store-password-in-clear-text  Enables storing portable package source credentials by disabling password encryption.
+  --valid-authentication-types    Comma-separated list of valid authentication types for this source. Set this to basic if the server advertises NTLM or Negotiate and your credentials must be sent using the Basic mechanism, for instance when using a PAT with on-premises Azure DevOps Server. Other valid values include negotiate, kerberos, ntlm, and digest, but these values are unlikely to be useful.
+  --protocol-version              The NuGet server protocol version to be used. Currently supported versions are 2 and 3. See https://learn.microsoft.com/nuget/api/overview for information about the version 3 protocol. Defaults to 2 if not specified.
+  --configfile                    The NuGet configuration file. If specified, only the settings from this file will be used. If not specified, the hierarchy of configuration files from the current directory will be used. For more information, see https://docs.microsoft.com/nuget/consume-packages/configuring-nuget-behavior.
+  -h|--help                       Show help information
+  
+  
+
+  
+  
+%--------------------------------------------- Section 2: C# Crash Course - Basics -----------------------------------------------------%
+
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects> 
+
+In the Next Lecture I will be copy pasting this code into the "Main" method in my Visual Studio Code window to streamline the process of covering these different variable types and supply some of the notes and specific numbers that are related to different variable types in C#.
+
+The Script below can be copied into your Visual Studio Code project's "Main" method, or you can type it out as we cover each type, whichever you prefer.
+
+
+
+A lot of what we cover in the next lecture is more to give you a reference point, and less something that you need to memorize, so don't worry too much about taking notes, the goal is just to understand the basic idea of the data types we will talk about.
+
+
+
+            //// 1 byte is made up of 8 bits 00000000 - these bits can be used to store a number as follows
+            // //// Each bit can be worth 0 or 1 of the value it is placed in
+            // ////// From the right we start with a value of 1 and double for each digit to the left
+            // //// 00000000 = 0
+            // //// 00000001 = 1
+            // //// 00000010 = 2
+            // //// 00000011 = 3
+            // //// 00000100 = 4
+            // //// 00000101 = 5
+            // //// 00000110 = 6
+            // //// 00000111 = 7
+            // //// 00001000 = 8
+ 
+            // 1 byte (8 bit) unsigned, where signed means it can be negative
+            byte myByte = 255;
+            byte mySecondByte = 0;
+ 
+            // 1 byte (8 bit) signed, where signed means it can be negative
+            sbyte mySbyte = 127;
+            sbyte mySecondSbyte = -128;
+ 
+ 
+            // 2 byte (16 bit) unsigned, where signed means it can be negative
+            ushort myUshort = 65535;
+ 
+            // 2 byte (16 bit) signed, where signed means it can be negative
+            short myShort = -32768;
+ 
+            // 4 byte (32 bit) signed, where signed means it can be negative
+            int myInt = 2147483647;
+            int mySecondInt = -2147483648;
+ 
+            // 8 byte (64 bit) signed, where signed means it can be negative
+            long myLong = -9223372036854775808;
+ 
+ 
+            // 4 byte (32 bit) floating point number
+            float myFloat = 0.751f;
+            float mySecondFloat = 0.75f;
+ 
+            // 8 byte (64 bit) floating point number
+            double myDouble = 0.751;
+            double mySecondDouble = 0.75d;
+ 
+            // 16 byte (128 bit) floating point number
+            decimal myDecimal = 0.751m;
+            decimal mySecondDecimal = 0.75m;
+ 
+            // Console.WriteLine(myFloat - mySecondFloat);
+            // Console.WriteLine(myDouble - mySecondDouble);
+            // Console.WriteLine(myDecimal - mySecondDecimal);
+ 
+ 
+ 
+            string myString = "Hello World";
+            // Console.WriteLine(myString);
+            string myStringWithSymbols = "!@#$@^$%%^&(&%^*__)+%^@##$!@%123589071340698ughedfaoig137";
+            // Console.WriteLine(myStringWithSymbols);
+ 
+            bool myBool = true;
+
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects> dotnet new console -n Variables
+
+
+## Data Structures:
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects> dotnet new console -n DataStructures
+
+## Operators and Conditionals:
+
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects> dotnet new console -n OperatorsAndCondition
+
+
+
+## Conditional Statements;
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects> dotnet new console -n Conditional
+
+## Loops;
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects> dotnet new console -n Loops
+
+## Methods;
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects> dotnet new console -n Methods
+
+
+## Scope:
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects> dotnet new console -n Scopes
+
+
+
+%--------------------------------------------- Section 3: C# Crash Course - Intermediate  -----------------------------------------------------%
+
+## Models:
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects> dotnet new console -n Models
+
+## String Property Defaults:
+
+- One of our students has pointed out to me that there is an even easier way to manage the warning about strings being null when exiting the constructor.
+- In the last lecture we set up a constructor for our model class to set the value if it were ever null, 
+- however we could also declare a default value for the property during the property declaration in the class very simply like this:
+
+    public class Computer
+    {
+        public string Motherboard { get; set; } = "";
+        public int CPUCores { get; set; }
+        public bool HasWifi { get; set; }
+        public bool HasLTE { get; set; }
+        public DateTime ReleaseDate { get; set; }
+        public decimal Price { get; set; }
+        public string VideoCard { get; set; } = "";
+    }
+	
+
+## Namespaces
+
+Computer SQL Script
+Hello!
+
+In the next lecture we will create our first SQL table to mimic our Computer model.
+
+Because there will be a more in depth explanation of creating SQL tables in the SQL section of the course, 
+I wanted to include the script that you can copy paste into Azure Data Studio to set up that table 
+so that we can stay mostly focused on the C# side of things in the next few lectures.
+
+
+
+CREATE DATABASE DotNetCourseDatabase
+GO
+ 
+USE DotNetCourseDatabase
+GO
+ 
+CREATE SCHEMA TutorialAppSchema
+GO
+ 
+CREATE TABLE TutorialAppSchema.Computer(
+    ComputerId INT IDENTITY(1,1) PRIMARY KEY,
+    Motherboard NVARCHAR(50),
+    CPUCores INT,
+    HasWifi BIT,
+    HasLTE BIT,
+    ReleaseDate DATE,
+    Price DECIMAL(18,4),
+    VideoCard NVARCHAR(50)
+);
+
+
+## Database Connections
+In the next lecture we are going to be connecting out program to the database.
+
+For a small percentage of Windows users you may receive an error "A network-related or instance-specific error occurred..."
+
+This is only happening to a handful of students, so I do encourage you to try to follow along with the next lecture, 
+and to just revisit these instructions if the error pops up for you.
+
+
+If that error pops up, something has happened  during your installation of SQL server that is stopping it from being accessible.
+The steps below will help you to ensure the correct settings are selected for it to be accessible:
+
+1. Search for "SQL Server Configuration Manager" or "SQL Server 2022 Configuration Manager" program
+
+2. Select "SQL Server Network Configuration"
+
+3. Select "Protocols for MSSQLServer"
+
+4. Right Click on "TCP/IP" and select "Properties" 
+
+5. Make sure "Enabled" is set to "Yes"
+
+6. Select "IP Addresses" Tab
+
+7. Scroll all the way down to the last entry, "IP All"
+
+8. Set the "TCP Port" to 1433.
+
+9. Select Apply and Ok
+
+10. In the main Sql Server Configuration Manager window, select "SQL Server Services" from the side menu
+
+11. Right click on "SQL Server (MSSQLSERVER)" and select "Restart"
+
+12. Go back to Azure Data Studio and add the port number "1433" to the server name "localhost:1433"
+
+13. Set the Server Name in your connection string to also be "localhost:1433"
+
+
+If you have gotten this error and still were not able to resolve it with the steps above, please leave a comment and I will help you to troubleshoot.
+------------------------------------------------------------------------------------
+
+CREATE DATABASE DotNetCourseDatabase
+GO
+
+USE DotNetCourseDatabase
+GO
+
+CREATE SCHEMA TutorialAppSchema
+GO
+
+CREATE TABLE TutorialAppSchema.Computer(
+	ComputerId INT IDENTITY(1,1) PRIMARY KEY,
+	Motherboard NVARCHAR(50),
+	CPUCores INT,
+	HasWifi BIT,
+	HasLTE BIT,
+	ReleaseDate DATE,
+	Price DECIMAL(18,4),
+	VideoCard NVARCHAR(50)
+);
+------------------------------------------------------------------------------
+First:
+In the next lecture when we try to insert a decimal value to our table in the SQL Database, 
+ome people will receive an error like the title of this lecture "Error converting data type varchar to numeric".
+
+This is usually because in some areas of the world that use a comma( , ) instead of a period( . ) as a decimal point, and MS SQL Server doesn't understand that format.
+The solution to this is to add a formatting conversion that uses InvariantCulture as the provider, and "0.00" as the format with ".ToString("0.00", CultureInfo.InvariantCulture)".
+
+myComputer.Price.ToString("0.00", CultureInfo.InvariantCulture)
+
+
+Second:
+
+In the same piece of code we will attempt to insert a date to our table, 
+some people will receive a different error: "Conversion failed when converting date and/or time from character string".
+This is because in some areas the date format is not recognized by MS SQL Server.
+The solution to this is also to add a formatting conversion to a standardized format ".ToString("yyyy-MM-dd")"
+
+myComputer.ReleaseDate.ToString("yyyy-MM-dd")
+
+These formatting adjustments should make sure that wherever you are in the world, MS SQL server will accept the values we are going to insert.
+
+
+USE master
+
+DROP DotNetCourseDatabase
+
+SELECT * FROM TutorialAppSchema.Computer
+
+--------------------------------------
+
+USE DotNetCourseDatabase
+Go
+
+TRUNCATE TABLE  TutorialAppSchema.Computer
+
+
+SELECT * FROM TutorialAppSchema.Computer
+
+
+-----------------------------------------------------
+
+
+
+## Adding Dapper , Sql , Entity framework  package
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\models> dotnet add package Dapper
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\models> dotnet add package microsoft.data.sqlclient
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\models> dotnet add package microsoft.entityframeworkcore
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\models> dotnet add package microsoft.entityframeworkcore.sqlserver
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\models> dotnet add package microsoft.Extensions.Configuration
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\models> dotnet add package microsoft.Extensions.Configuration.Json
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\models> dotnet add package Newtonsoft.Json
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\models> dotnet add package AutoMapper
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\models> dotnet restore
+
+---------------------------------------------------------------------------------------------
+
+		string connectionString = "Server=localhost;Database=DotNetCourseDatabase;TrustServerCertificate=true;Trusted_Connection=true;"; // for window operating system
+		
+		string connectionString = "Server=localhost;Database=DotNetCourseDatabase;TrustServerCertificate=true;Trusted_Connection=false; user Id=sa; password=sqlconnect1";  // for linux ,  mac-os system
+        
+		IDbConnection dbConnection = new SqlConnection(connectionString);
+        
+        string sqlCommand = "SELECT GETDATE()";
+
+        DateTime rightNow = dbConnection.QuerySingle<DateTime>(sqlCommand);
+
+        Console.WriteLine(rightNow);
+
+
+
+-----------------------------------------------------------------------------------
+
+
+## Dapper
+
+string connectionString = "Server=localhost;Database=DotNetCourseDatabase;TrustServerCertificate=true;Trusted_Connection=true;";
+
+IDbConnection dbConnection = new SqlConnection(connectionString);
+        
+string sqlCommand = "SELECT GETDATE()";
+
+DateTime rightNow = dbConnection.QuerySingle<DateTime>(sqlCommand);
+
+
+
+## Entity Framework
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects> dotnet new console -n EntityFramework
+
+----------------------------------------------------------------------------------
+
+using EntityFramework.Models;
+using Microsoft.EntityFrameworkCore;
+
+namespace EntityFramework.Data
+{
+    public class DataContextEF : DbContext
+    {
+        public DbSet<Computer>? Computer {get; set;}
+        protected override void OnConfiguring(DbContextOptionsBuilder options)
+        {
+            if(!options.IsConfigured)
+            {
+                options.UseSqlServer("Server=localhost;Database=DotNetCourseDatabase;TrustServerCertificate=true;Trusted_Connection=true;"
+                ,options => options.EnableRetryOnFailure());
+            }
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {   
+            modelBuilder.HasDefaultSchema("TutorialAppSchema");
+            modelBuilder.Entity<Computer>()
+            //.HasNoKey()
+            .HasKey( c => c.ComputerId);
+            //.ToTable("Computer", "TutorialAppSchema");
+            //.ToTable("TableName", "SchemaName");
+        }
+
+    }
+
+}
+
+
+--------------------------------------------------------------------------------
+## Config:
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\EntityFramework> dotnet add package microsoft.Extensions.Configuration
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\EntityFramework> dotnet add package microsoft.Extensions.Configuration.Json
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\EntityFramework> dotnet restore
+
+>> git config --global --add safe.directory D:/Udemy_Course/dotNet_With_SQL/projects/EntityFramework
+>> git branch -M master
+>> git remote add origin https://github.com/jnybrahma/MS_DotNet_EntityFramework.git
+>> git push -u origin master
+
+USE DotNetCourseDatabase
+
+SELECT * FROM TutorialAppSchema.Computer
+
+## File Read and Write: 
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects> dotnet new console -n ReadWriteFile
+
+- Reading/Writing to File
+- Parsing JSON - Deserializing/ Serializing
+- Simple Model Mapping - Automapper , JSONAttributeName
+
+
+## JSON:
+
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\JsonReadWrite> dotnet add package Newtonsoft.Json
+
+
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\JsonReadWrite> dotnet add package AutoMapper
+
+
+USE DotNetCourseDatabase
+Go
+
+TRUNCATE TABLE  TutorialAppSchema.Computer
+
+
+SELECT * FROM TutorialAppSchema.Computer
+
+
+USE DotNetCourseDatabase
+Go
+SELECT * FROM TutorialAppSchema.Computer
+
+## Model Mapping;
+
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\JsonReadWrite> dotnet add package AutoMapper
+
+
+
+%--------------------------------------------- Section 4: SQL Seed -----------------------------------------------------%
+
+This can be done by executing the following in Azure Data Studio after connecting to your SQL Server:
+
+CREATE DATABASE DotNetCourseDatabase;
+GO
+ 
+USE DotNetCourseDatabase;
+GO
+ 
+CREATE SCHEMA TutorialAppSchema;
+GO
+
+-----------------------------------------------------------------
+
+MacOS and Linux Users
+
+
+In the next lecture, and lectures to come, we will be using "Windows Authentication" in the video, but this will only work on Windows OS.
+
+Please continue to use SQL Authentication and provide a Username and Password that we used in the install video instead.
+
+
+If you used the same credentials as me in the install video, they will be as follows:
+
+UserName: sa
+
+Password: SQLConnect1
+
+
+For connection strings you will also need to set Trusted_Connection to false and supply a UserName and Password:
+
+
+Server=localhost;Database=DotNetCourseDatabase;Trusted_Connection=false;TrustServerCertificate=True;User Id=sa;Password=SQLConnect1;
+
+
+----------------------------------------------------------------------------------------------------------------
+
+https://github.com/DomTripodi93/DotNetAPICourse/tree/main/SQLSeed
+
+----------------------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS TutorialAppSchema.Users;
+
+-- IF OBJECT_ID('TutorialAppSchema.Users') IS NOT NULL
+--     DROP TABLE TutorialAppSchema.Users;
+
+CREATE TABLE TutorialAppSchema.Users
+(
+	-- TableId INT IDENTITY (Starting, Increment by)
+    UserId INT IDENTITY(1, 1) PRIMARY KEY
+    , FirstName NVARCHAR(50)
+    , LastName NVARCHAR(50)
+    , Email NVARCHAR(50) UNIQUE
+    , Gender NVARCHAR(50)
+    , Active BIT
+);
+
+DROP TABLE IF EXISTS TutorialAppSchema.UserSalary;
+
+-- IF OBJECT_ID('TutorialAppSchema.UserSalary') IS NOT NULL
+--     DROP TABLE TutorialAppSchema.UserSalary;
+
+CREATE TABLE TutorialAppSchema.UserSalary
+(
+    UserId INT
+    , Salary DECIMAL(18, 4)
+);
+
+DROP TABLE IF EXISTS TutorialAppSchema.UserJobInfo;
+
+-- IF OBJECT_ID('TutorialAppSchema.UserJobInfo') IS NOT NULL
+--     DROP TABLE TutorialAppSchema.UserJobInfo;
+
+CREATE TABLE TutorialAppSchema.UserJobInfo
+(
+    UserId INT
+    , JobTitle NVARCHAR(50)
+    , Department NVARCHAR(50),
+);
+--------------------------------------------------------------------------------------------------
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\SQLSeed> dotnet run
+
+USE DotNetCourseDatabase;
+GO
+
+CREATE SCHEMA TutorialAppSchema
+GO
+
+
+SELECT  [UserId]
+      , [FirstName]
+      , [LastName]
+      , [Email]
+      , [Gender]
+      , [Active]
+   FROM  TutorialAppSchema.Users;
+
+SELECT  [UserId]
+      , [Salary]
+   FROM  TutorialAppSchema.UserSalary;
+
+SELECT  [UserId]
+       , [JobTitle]
+       , [Department]
+   FROM  TutorialAppSchema.UserJobInfo;
+   
+----------------------------------------------------------------------------------------------------------
+
+
+
+%--------------------------------------------- Section 5: Sql -----------------------------------------------------%
+
+USE DotNetCourseDatabase
+GO
+
+CREATE SCHEMA TutorialAppSchema
+GO
+
+CREATE TABLE TutorialAppSchema.Computer(
+	ComputerId INT IDENTITY(1,1) PRIMARY KEY,
+	Motherboard NVARCHAR(50),
+	CPUCores INT,
+	HasWifi BIT,
+	HasLTE BIT,
+	ReleaseDate DATE,
+	Price DECIMAL(18,4),
+	VideoCard NVARCHAR(50)
+);
+
+--------------------------------------------------------------
+
+
+USE DotNetCourseDatabase
+Go
+SELECT * FROM TutorialAppSchema.Computer
+
+--------------------------------------------------------------
+
+INSERT INTO TutorialAppSchema.Computer(
+	[Motherboard],
+	[CPUCores],
+	[HasWifi],
+	[HasLTE],
+	[ReleaseDate],
+	[Price],
+	[VideoCard] 
+) VALUES(
+		'test-Motherboard' ,
+		8,
+		1,
+		0,
+		'2024-02-01',
+		876.96,
+		'test-videocard'
+ )
+
+
+---------------------------------------------------------------
+
+
+DELETE FROM TutorialAppSchema.Computer WHERE ComputerId = 102
+
+
+UPDATE TutorialAppSchema.Computer  SET CPUCores = 6 WHERE ComputerId = 98
+
+UPDATE TutorialAppSchema.Computer SET CPUCores = 2 WHERE ReleaseDate < '2017-01-01'
+
+SELECT [ComputerId],
+[Motherboard],
+[CPUCores],
+[HasWifi],
+[HasLTE],
+[ReleaseDate],
+[Price],
+[VideoCard] FROM TutorialAppSchema.Computer
+-------------------------------------------------------------------
+SELECT [ComputerId],
+[Motherboard],
+ISNULL([CPUCores],4) AS CPUCores,
+[HasWifi],
+[HasLTE],
+[ReleaseDate],
+[Price],
+[VideoCard] FROM TutorialAppSchema.Computer
+
+-------------------------------------------------------------------
+SELECT [ComputerId],
+[Motherboard],
+ISNULL([CPUCores],4) AS CPUCores,
+[HasWifi],
+[HasLTE],
+[ReleaseDate],
+[Price],
+[VideoCard] FROM TutorialAppSchema.Computer ORDER BY  ReleaseDate  
+
+
+--------------------------------------------------------------------
+
+SELECT [ComputerId],
+[Motherboard],
+ISNULL([CPUCores],4) AS CPUCores,
+[HasWifi],
+[HasLTE],
+[ReleaseDate],
+[Price],
+[VideoCard] FROM TutorialAppSchema.Computer ORDER BY  ReleaseDate DESC
+
+----------------------------------------------- SQL - Intermediate ----------------------------------------------------------------
+
+USE DotNetCourseDatabase;
+GO
+
+SELECT  [UserId]
+      , [FirstName]
+      , [LastName] 
+      , [Email]
+      , [Gender]
+      , [Active]
+   FROM  TutorialAppSchema.Users AS Users;
+
+SELECT  [UserId]
+      , [Salary]
+   FROM  TutorialAppSchema.UserSalary;
+
+SELECT  [UserId]
+       , [JobTitle]
+       , [Department]
+   FROM  TutorialAppSchema.UserJobInfo;
+
+
+
+
+SELECT  [UserId]
+      , [FirstName] + ' '+ , [LastName] AS fullName, 
+      , [Email]
+      , [Gender]
+      , [Active]
+   FROM  TutorialAppSchema.Users AS Users;
+-------------------------------------------------------------------------------
+
+
+%--------------------------------------------- Section 6: API Basics -----------------------------------------------------%
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects> dotnet new webapi -n DotnetAPI
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\DotnetAPI> code .
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\DotnetAPI> dotnet run
+
+Building...
+info: Microsoft.Hosting.Lifetime[14]
+      Now listening on: http://localhost:5202
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Development
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: D:\Udemy_Course\dotNet_With_SQL\projects\DotnetAPI
+warn: Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware[3]
+      Failed to determine the https port for redirect.
+
+http://localhost:5202/weatherforecast
+
+
+http://localhost:5202/swagger/index.html
+
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\DotnetAPI> dotnet watch run
+
+
+http://localhost:5202/swagger/index.html
+
+## Custom Controller;
+
+re-build in console when using > dotnet watch run
+use command  = ctrl + R
+
+
+http://localhost:5202/User/test?testValue=%22testValue%22
+
+--------------------------------------------------------------------------------------------------
+
+In the next lecture we will be setting up our Launch Settings to default to HTTP instead of HTTPS, and to use Port 5000 instead of the randomly assigned port from generating the project.
+
+With .NET 8 you probably already know that the HTTPS redirect is not going to be an issue, but when we set the port to 5000, launchSettings.json looks a little bit different.
+
+Instead of a profile listed for the name of your project, you will see two profiles, "http" and "https".
+
+When we change the order of our two options, it will look like the "https" profile, but with the way .NET 8 is set up, we will also want to change the port in the default "http" profile.
+
+
+
+When all is said and done, your launchSettings.json for .NET Core 7 should look like the version below:
+
+{
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:36431",
+      "sslPort": 44328
+    }
+  },
+  "profiles": {
+    "http": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "applicationUrl": "http://localhost:5000",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "https": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "applicationUrl": "https://localhost:5001;http://localhost:5000",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
+
+-----------------------------------------------------------------------------------
+
+http://localhost:5000/swagger/index.html
+
+
+----------------------------------------------------------------------------------------------------------------------
+
+
+InvariantGlobalization Bug
+Hello!
+
+With the release of .NET Core 8, a bug was introduced to the "webapi" template that causes issues when interacting with the database.
+
+Fortunately, this bug has been fixed in the source code for .NET Core, and it is only a matter of time until a new patch is released fixing the issue.
+
+
+In the meantime, you may experience the following error if you do not make a small adjustment to your .csproj file:
+
+
+
+Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware[1]
+An unhandled exception has occurred while executing the request.
+System.Globalization.CultureNotFoundException: Only the invariant culture is supported in globalization-invariant mode
+
+
+To stop this from happening, or fix it if it is already happening to you, you will need to set the "InvariantGlobalization" setting in your .csproj file to "false",
+<InvariantGlobalization>false</InvariantGlobalization>:
+
+
+
+<Project Sdk="Microsoft.NET.Sdk.Web">
+ 
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <InvariantGlobalization>false</InvariantGlobalization>
+  </PropertyGroup>
+...
+
+
+With that out of the way, everything should work as expected!
+
+
+------------------------------------------------------------------------------------------------
+
+http://localhost:5000/swagger/index.html
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\DotnetAPI> dotnet add package Dapper
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\DotnetAPI> dotnet add package microsoft.data.sqlclient
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\DotnetAPI> dotnet add package microsoft.entityframeworkcore
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\DotnetAPI> dotnet add package microsoft.entityframeworkcore.Relational
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\DotnetAPI> dotnet add package microsoft.entityframeworkcore.sqlserver
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\DotnetAPI> dotnet add package microsoft.Extensions.Configuration
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\DotnetAPI> dotnet add package microsoft.Extensions.Configuration.Json
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\DotnetAPI> dotnet add package Newtonsoft.Json
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\DotNetAPI_Intermediate>  dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\DotnetAPI> dotnet add package AutoMapper
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\DotnetAPI> dotnet restore
+
+---------------- Notes ------------------------------------
+- .csproj file;
+
+<PropertyGroup>
+  <TargetFramework>net8.0</TargetFramework>
+  <ImplicitUsings>enable</ImplicitUsings>
+  <InvariantGlobalization>false</InvariantGlobalization>
+</PropertyGroup>
+
+
+---------------------------------------------------
+
+
+http://localhost:5000/swagger/index.html
+
+
+## DTO : (Data Transfer Object)
+
+## namaspace
+
+
+## 
+
+- DELETE FROM TutorialAppSchema.Users WHERE UserId = 1001
+
+- SELECT COUNT(*) FROM TutorialAppSchema.Users
+
+- SELECT * FROM TutorialAppSchema.Users WHERE UserId BETWEEN 495 and 505
+
+
+## Entity Framework Setup;
+
+git branch -M master
+git remote add origin https://github.com/jnybrahma/Dot_Net_API.git
+git push -u origin master
+
+%--------------------------------------------- Section 7: API - Intermediate -----------------------------------------------------%
+
+## Repository Flow;
+
+
+## Authentication
+- UserId from token
+
+## Refactoring Resusable Code;
+
+
+## Related Data
+
+
+
+http://localhost:5000/swagger/index.html
+
+
+CREATE TABLE TutorialAppSchema.Auth (
+	Email NVARCHAR(50)
+	, PasswordHash VARBINARY(MAX)
+	, PasswordSalt VARBINARY(MAX)
+)
+
+------------------------------------------------------------------------------------
+## JWT token creation:
+
+In the next lecture, "JWT Token Creation", we are going to create a JWT JavaScript Web Token to Authenticate and identify our user after they log into our API.
+
+Part of this process involves pulling a token key, which is used to sign our token, out of the appsettings.json file.
+
+
+If you are following along from .NET 8, you will notice that in the next video you have a warning that I don't have right after you create your SymmetricSecurityKey for your JWT.
+
+
+The code snippet below will get rid of that warning.
+
+
+string? tokenKeyString = _config.GetSection("AppSettings:Token").Value;
+ 
+SymmetricSecurityKey tokenKey = new SymmetricSecurityKey(
+        Encoding.UTF8.GetBytes(
+            tokenKeyString != null ? tokenKeyString : ""
+        )
+    );
+
+
+The warning comes up because IConfiguration (which "_config" is an instance of) may return a null value in .NET 7 when calling GetSection().
+
+We address that here by assigning it to a nullable string, and then checking if that string is null before we decide whether or not to use it. 
+
+If the conditional statement "tokenKeyString != null" is true, and tokenKeyString is not null, we take the value between the "?" and the ":", tokenKeyString,
+ if the condition is false, we take the value after the ":", an empty string, as an else value.
+
+
+In the following lecture, "JWT Token Validation", we have a similar situation, as we set up out Program.cs file to accept our new token.
+
+
+In order to verify that the signature of the token our user passes back to us matches the signature of the token we issued,
+we need to provide the same SymmetricSecurityKey to our TokenValidationParameters.
+
+
+string? tokenKeyString = builder.Configuration.GetSection("AppSettings:Token").Value;
+ 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options => {
+        options.TokenValidationParameters = new TokenValidationParameters() 
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
+                    tokenKeyString != null ? tokenKeyString : ""
+                )),
+                ValidateIssuer = false,
+                ValidateAudience = false
+            };
+        });
+
+
+This code snippet will use the same logic from to ensure that the string returned by GetSection() is not null.
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\DotNetAPI_Intermediate>  dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
+
+
+-------------------------------------------------------------------------------------------------------------
+
+http://localhost:5000/User/GetUsers
+
+
+CREATE TABLE TutorialAppSchema.Posts (
+	PostId INT IDENTITY(1,1),
+	UserId INT,
+	PostTitle NVARCHAR(255),
+	PostContent NVARCHAR(MAX),
+	PostCreated DATETIME,
+	PostUpdated DATETIME
+)
+
+CREATE CLUSTERED INDEX cix_Posts_UserId_PostId ON TutorialAppSchema.Posts(UserId, PostId)
+
+SELECT [PostId],
+	[UserId],
+	[PostTitle],
+	[PostContent],
+	[PostCreated],
+	[PostUpdated] 
+    FROM TutorialAppSchema.Posts;
+
+INSERT INTO TutorialAppSchema.Posts (
+	[PostId],
+	[UserId],
+	[PostTitle],
+	[PostContent],
+	[PostCreated],
+	[PostUpdated] ) VALUES ()
+
+
+UPDATE TutorialAppSchema.Posts 
+	SET PostContent = '', PostTitle = '', PostUpdated = GETDATE() 
+	WHERE PostId =
+
+
+%--------------------------------------------- Section 8: Stored Procedures ----------------------------------------------%
+
+http://localhost:5000/swagger/index.html
+
+## Create store procedure:
+
+USE DotNetCourseDatabase
+GO
+
+CREATE PROCEDURE TutorialAppSchema.spUsers_Get
+/*EXEC TutorialAppSchema.spUsers_Get*/
+AS 
+BEGIN
+	SELECT GETDATE()
+END
+-----------------------------------------------------------
+USE DotNetCourseDatabase
+GO
+
+CREATE PROCEDURE TutorialAppSchema.spUsers_Get
+/*EXEC TutorialAppSchema.spUsers_Get*/
+AS 
+BEGIN
+	SELECT  [Users].[UserId],
+            [Users].[FirstName],
+            [Users].[LastName],
+            [Users].[Email],
+            [Users].[Gender],
+            [Users].[Active]
+    FROM TutorialAppSchema.Users  AS Users
+END
+
+--------------------------------------------------------------
+
+USE DotNetCourseDatabase
+GO
+ALTER PROCEDURE TutorialAppSchema.spUsers_Get
+/*EXEC TutorialAppSchema.spUsers_Get*/
+AS 
+BEGIN
+	SELECT  [Users].[UserId],
+            [Users].[FirstName],
+            [Users].[LastName],
+            [Users].[Email],
+            [Users].[Gender],
+            [Users].[Active]
+    FROM TutorialAppSchema.Users  AS Users
+END
+
+
+------------------------------------------------------------------
+
+USE DotNetCourseDatabase
+GO
+ALTER PROCEDURE TutorialAppSchema.spUsers_Get
+/*EXEC TutorialAppSchema.spUsers_Get @UserId=1006*/
+	@UserId INT
+AS 
+BEGIN
+	SELECT  [Users].[UserId],
+            [Users].[FirstName],
+            [Users].[LastName],
+            [Users].[Email],
+            [Users].[Gender],
+            [Users].[Active]
+    FROM TutorialAppSchema.Users  AS Users
+		WHERE  Users.UserId =  @UserId
+END
+
+--------------------------------------------------------
+## Nullable Parameters;
+
+USE DotNetCourseDatabase
+GO
+ALTER PROCEDURE TutorialAppSchema.spUsers_Get
+/*EXEC TutorialAppSchema.spUsers_Get @UserId=1006*/
+	@UserId INT = NULL
+AS 
+BEGIN
+	SELECT  [Users].[UserId],
+            [Users].[FirstName],
+            [Users].[LastName],
+            [Users].[Email],
+            [Users].[Gender],
+            [Users].[Active]
+    FROM TutorialAppSchema.Users  AS Users
+		WHERE  Users.UserId =  @UserId
+END
+
+----------------------------------------------------------------
+## Nullable Parameters;
+
+
+GO
+ALTER PROCEDURE TutorialAppSchema.spUsers_Get
+/*EXEC TutorialAppSchema.spUsers_Get @UserId=999*/
+    @UserId INT = NULL
+AS 
+BEGIN
+	SELECT  [Users].[UserId],
+            [Users].[FirstName],
+            [Users].[LastName],
+            [Users].[Email],
+            [Users].[Gender],
+            [Users].[Active]
+    FROM TutorialAppSchema.Users  AS Users
+        WHERE  Users.UserId = ISNULL(@UserId, Users.UserId)
+END
+
+-------------------------------------------------------------------
+## Join and Outer Apply
+
+
+GO
+ALTER PROCEDURE TutorialAppSchema.spUsers_Get
+/*EXEC TutorialAppSchema.spUsers_Get @UserId=999*/
+    @UserId INT = NULL
+AS 
+BEGIN
+	SELECT  [Users].[UserId],
+            [Users].[FirstName],
+            [Users].[LastName],
+            [Users].[Email],
+            [Users].[Gender],
+            [Users].[Active],
+			UserSalary.Salary,
+			UserJobInfo.Department,
+			UserJobInfo.JobTitle
+    FROM TutorialAppSchema.Users  AS Users
+		LEFT JOIN TutorialAppSchema.UserSalary as UserSalary
+			ON UserSalary.UserId = Users.UserId
+		LEFT JOIN TutorialAppSchema.UserJobInfo as UserJobInfo
+			ON UserJobInfo.UserId = Users.UserId
+        WHERE  Users.UserId = ISNULL(@UserId, Users.UserId)
+END
+
+
+----------------------------------------------------------------------
+
+GO
+ALTER PROCEDURE TutorialAppSchema.spUsers_Get
+/*EXEC TutorialAppSchema.spUsers_Get @UserId=999*/
+    @UserId INT = NULL
+AS 
+BEGIN
+	SELECT	UserJobInfo.Department
+			,AVG(UserSalary.Salary) AvgSalary			
+    FROM TutorialAppSchema.Users  AS Users
+		LEFT JOIN TutorialAppSchema.UserSalary as UserSalary
+			ON UserSalary.UserId = Users.UserId
+		LEFT JOIN TutorialAppSchema.UserJobInfo as UserJobInfo
+			ON UserJobInfo.UserId = Users.UserId
+		GROUP BY UserJobInfo.Department
+
+	SELECT  [Users].[UserId],
+            [Users].[FirstName],
+            [Users].[LastName],
+            [Users].[Email],
+            [Users].[Gender],
+            [Users].[Active],
+			UserSalary.Salary,
+			UserJobInfo.Department,
+			UserJobInfo.JobTitle,
+			UserSalary.AvgSalary,
+			AvgSalary.AvgSalary
+    FROM TutorialAppSchema.Users  AS Users
+		LEFT JOIN TutorialAppSchema.UserSalary as UserSalary
+			ON UserSalary.UserId = Users.UserId
+		LEFT JOIN TutorialAppSchema.UserJobInfo as UserJobInfo
+			ON UserJobInfo.UserId = Users.UserId
+		OUTER APPLY( 
+			SELECT	UserJobInfo2.Department
+					,AVG(UserSalary2.Salary) AvgSalary			
+			FROM TutorialAppSchema.Users  AS Users
+				LEFT JOIN TutorialAppSchema.UserSalary as UserSalary2
+					ON UserSalary2.UserId = Users.UserId
+				LEFT JOIN TutorialAppSchema.UserJobInfo as UserJobInfo2
+					ON UserJobInfo2.UserId = Users.UserId
+				WHERE UserJobInfo2.Department = UserJobInfo.Department
+				GROUP BY UserJobInfo2.Department
+			) AvgSalary
+        WHERE  Users.UserId = ISNULL(@UserId, Users.UserId)
+END
+
+
+-------------------------------------------------------------------------------------------------
+GO
+
+ALTER PROCEDURE TutorialAppSchema.spUsers_Get
+/*EXEC TutorialAppSchema.spUsers_Get @UserId=999*/
+    @UserId INT = NULL
+AS 
+BEGIN   
+        IF OBJECT_ID('tempdb..#AverageDeptSalary','U') IS NOT NULL
+            BEGIN
+                DROP TABLE #AverageDeptSalary
+            END
+
+        --DROP TABLE IF EXISTS #AverageDeptSalary
+
+        SELECT	
+            UserJobInfo.Department
+			,AVG(UserSalary.Salary) AvgSalary
+            INTO #AverageDeptSalary			
+        FROM TutorialAppSchema.Users  AS Users
+		LEFT JOIN TutorialAppSchema.UserSalary as UserSalary
+			ON UserSalary.UserId = Users.UserId
+		LEFT JOIN TutorialAppSchema.UserJobInfo as UserJobInfo
+			ON UserJobInfo.UserId = Users.UserId
+		GROUP BY UserJobInfo.Department
+
+        CREATE CLUSTERED INDEX cix_AverageDeptSalary_Department ON #AverageDeptSalary(Department)
+
+
+        SELECT  [Users].[UserId],
+            [Users].[FirstName],
+            [Users].[LastName],
+            [Users].[Email],
+            [Users].[Gender],
+            [Users].[Active],
+			UserSalary.Salary,
+			UserJobInfo.Department,
+			UserJobInfo.JobTitle
+    FROM TutorialAppSchema.Users  AS Users
+		LEFT JOIN TutorialAppSchema.UserSalary as UserSalary
+			ON UserSalary.UserId = Users.UserId
+		LEFT JOIN TutorialAppSchema.UserJobInfo as UserJobInfo
+			ON UserJobInfo.UserId = Users.UserId
+        LEFT JOIN #AverageDeptSalary AS AvgSalary
+            ON AvgSalary.Department = UserJobInfo.Department        
+        --OUTER APPLY(
+        --    SELECT AVG(UserSalary2.Salary) AvgSalary
+        --    FROM TutorialAppSchema.Users as Users
+        --        LEFT JOIN TutorialAppSchema.UserSalary as UserSalary2
+        --            ON UserSalary2.UserId = Users.UserId
+        --        LEFT JOIN TutorialAppSchema.UserJobInfo as UserJobInfo2
+        --            ON UserJobInfo2.UserId = Users.UserId
+        --        WHERE UserJobInfo2.Department = UserJobInfo.Department
+        --        GROUP BY UserJobInfo2.Department
+        --) As AvgSalary
+        WHERE  Users.UserId = ISNULL(@UserId, Users.UserId)
+END
+
+----------------------------------------------------------------------------------------------------------
+
+GO
+
+ALTER PROCEDURE TutorialAppSchema.spUsers_Get
+/*EXEC TutorialAppSchema.spUsers_Get @UserId=999*/
+    @UserId INT = NULL
+    , @Active BIT = NULL
+AS 
+BEGIN   
+        --IF OBJECT_ID('tempdb..#AverageDeptSalary','U') IS NOT NULL
+        --    BEGIN
+        --        DROP TABLE #AverageDeptSalary
+        --    END
+
+        DROP TABLE IF EXISTS #AverageDeptSalary
+
+        SELECT	
+            UserJobInfo.Department
+			,AVG(UserSalary.Salary) AvgSalary
+            INTO #AverageDeptSalary			
+        FROM TutorialAppSchema.Users  AS Users
+		LEFT JOIN TutorialAppSchema.UserSalary as UserSalary
+			ON UserSalary.UserId = Users.UserId
+		LEFT JOIN TutorialAppSchema.UserJobInfo as UserJobInfo
+			ON UserJobInfo.UserId = Users.UserId
+		GROUP BY UserJobInfo.Department
+
+        CREATE CLUSTERED INDEX cix_AverageDeptSalary_Department ON #AverageDeptSalary(Department)
+
+
+        SELECT  [Users].[UserId],
+            [Users].[FirstName],
+            [Users].[LastName],
+            [Users].[Email],
+            [Users].[Gender],
+            [Users].[Active],
+			UserSalary.Salary,
+			UserJobInfo.Department,
+			UserJobInfo.JobTitle
+    FROM TutorialAppSchema.Users  AS Users
+		LEFT JOIN TutorialAppSchema.UserSalary as UserSalary
+			ON UserSalary.UserId = Users.UserId
+		LEFT JOIN TutorialAppSchema.UserJobInfo as UserJobInfo
+			ON UserJobInfo.UserId = Users.UserId
+        LEFT JOIN #AverageDeptSalary AS AvgSalary
+            ON AvgSalary.Department = UserJobInfo.Department        
+        --OUTER APPLY(
+        --    SELECT AVG(UserSalary2.Salary) AvgSalary
+        --    FROM TutorialAppSchema.Users as Users
+        --        LEFT JOIN TutorialAppSchema.UserSalary as UserSalary2
+        --            ON UserSalary2.UserId = Users.UserId
+        --        LEFT JOIN TutorialAppSchema.UserJobInfo as UserJobInfo2
+        --            ON UserJobInfo2.UserId = Users.UserId
+        --        WHERE UserJobInfo2.Department = UserJobInfo.Department
+        --        GROUP BY UserJobInfo2.Department
+        --) As AvgSalary
+        WHERE  Users.UserId = ISNULL(@UserId, Users.UserId)
+             AND Users.Active = ISNULL(@Active, Users.Active)
+END
+
+----------------------------------------------------------------------------------------
+
+GO
+
+ALTER PROCEDURE TutorialAppSchema.spUsers_Get
+/*EXEC TutorialAppSchema.spUsers_Get @UserId=999*/
+    @UserId INT = NULL
+    , @Active BIT = NULL
+AS 
+BEGIN   
+        --IF OBJECT_ID('tempdb..#AverageDeptSalary','U') IS NOT NULL
+        --    BEGIN
+        --        DROP TABLE #AverageDeptSalary
+        --    END
+
+        DROP TABLE IF EXISTS #AverageDeptSalary
+
+        SELECT	
+            UserJobInfo.Department
+			,AVG(UserSalary.Salary) AvgSalary
+            INTO #AverageDeptSalary			
+        FROM TutorialAppSchema.Users  AS Users
+		LEFT JOIN TutorialAppSchema.UserSalary as UserSalary
+			ON UserSalary.UserId = Users.UserId
+		LEFT JOIN TutorialAppSchema.UserJobInfo as UserJobInfo
+			ON UserJobInfo.UserId = Users.UserId
+		GROUP BY UserJobInfo.Department
+
+        CREATE CLUSTERED INDEX cix_AverageDeptSalary_Department ON #AverageDeptSalary(Department)
+
+
+        SELECT  [Users].[UserId],
+            [Users].[FirstName],
+            [Users].[LastName],
+            [Users].[Email],
+            [Users].[Gender],
+            [Users].[Active],
+			UserSalary.Salary,
+			UserJobInfo.Department,
+			UserJobInfo.JobTitle
+    FROM TutorialAppSchema.Users  AS Users
+		LEFT JOIN TutorialAppSchema.UserSalary as UserSalary
+			ON UserSalary.UserId = Users.UserId
+		LEFT JOIN TutorialAppSchema.UserJobInfo as UserJobInfo
+			ON UserJobInfo.UserId = Users.UserId
+        LEFT JOIN #AverageDeptSalary AS AvgSalary
+            ON AvgSalary.Department = UserJobInfo.Department        
+        --OUTER APPLY(
+        --    SELECT AVG(UserSalary2.Salary) AvgSalary
+        --    FROM TutorialAppSchema.Users as Users
+        --        LEFT JOIN TutorialAppSchema.UserSalary as UserSalary2
+        --            ON UserSalary2.UserId = Users.UserId
+        --        LEFT JOIN TutorialAppSchema.UserJobInfo as UserJobInfo2
+        --            ON UserJobInfo2.UserId = Users.UserId
+        --        WHERE UserJobInfo2.Department = UserJobInfo.Department
+        --        GROUP BY UserJobInfo2.Department
+        --) As AvgSalary
+        WHERE  Users.UserId = ISNULL(@UserId, Users.UserId)
+            AND ISNULL(Users.Active,0) = COALESCE(@Active, Users.Active, Users.Active, 0)
+END
+
+-------------------------------------------------------------------------------------------------
+
+USE DotNetCourseDatabase
+GO
+
+CREATE OR ALTER PROCEDURE TutorialAppSchema.spUser_Upsert 
+	@FirstName NVARCHAR (50),
+	@LastName  NVARCHAR (50),
+	@Email NVARCHAR (50),
+	@Gender NVARCHAR (50),
+	@JobTitle NVARCHAR (50),
+	@Department NVARCHAR (50),
+	@Salary DECIMAL (18, 4),
+	@Active BIT =1,
+	@UserId INT = NULL
+
+AS
+BEGIN
+	IF NOT EXISTS (SELECT * FROM TutorialAppSchema.Users WHERE UserId = @UserId)
+		BEGIN
+		IF NOT EXISTS (SELECT * FROM TutorialAppSchema.Users WHERE Email = @Email)
+			BEGIN
+				DECLARE @OutputUserId INT
+
+				INSERT INTO  TutorialAppSchema.Users (
+					[FirstName],
+					[LastName],
+					[Email],
+					[Gender],
+					[Active] 
+					) VALUES (
+							@FirstName,
+							@LastName,
+							@Email,
+							@Gender,
+							@Active
+					)
+
+					SET @OutputUserId = @@IDENTITY
+
+					INSERT INTO TutorialAppSchema.UserSalary(
+						UserId,
+						Salary
+					) VALUES (
+						@OutputUserId,
+						@Salary
+					)
+
+					INSERT INTO TutorialAppSchema.UserJobInfo(
+						UserId,
+						JobTitle,
+						Department
+					) VALUES (
+						@OutputUserId,
+						@JobTitle,
+						@Department
+					)
+
+				END
+			END
+	ELSE
+		BEGIN
+			UPDATE TutorialAppSchema.Users 
+				SET FirstName = @FirstName,
+					LastName = @LastName,
+					Email = @Email,
+					Gender = @Gender,
+					Active = @Active
+				WHERE UserId = @UserId
+
+			UPDATE TutorialAppSchema.UserSalary
+				SET Salary = @Salary
+				WHERE UserId = @UserId
+			
+			UPDATE TutorialAppSchema.UserJobInfo
+				SET Department = @Department,
+					JobTitle = @JobTitle
+				WHERE UserId = @UserId
+			
+		END
+
+END
+
+
+---------------------------------------------------------------------------------------
+
+
+USE DotNetCourseDatabase
+GO
+
+CREATE PROCEDURE TutorialAppSchema.sp_User_Delete
+    @UserId INT
+AS
+BEGIN
+
+    DELETE FROM TutorialAppSchema.Users WHERE UserId = @UserId
+    DELETE FROM TutorialAppSchema.UserSalary WHERE UserId = @UserId
+    DELETE FROM TutorialAppSchema.UserJobInfo WHERE UserId = @UserId
+    
+
+
+END
+
+
+--------------------------------------------------------------------------------------
+
+USE DotNetCourseDatabase
+GO
+
+CREATE OR ALTER PROCEDURE TutorialAppSchema.spPosts_Upsert
+    @UserId INT,
+    @PostTitle NVARCHAR(255),
+    @PostContent NVARCHAR(MAX),
+    @PostId INT = NULL
+AS
+BEGIN
+     
+    IF NOT  EXISTS (SELECT * FROm TutorialAppSchema.Posts WHERE PostId = @PostId)
+        BEGIN
+            INSERT INTO TutorialAppSchema.Posts(
+                [UserId],
+                [PostTitle],
+                [PostContent],
+                [PostCreated],
+                [PostUpdated]
+
+                ) VALUES(
+                    @UserId,
+                    @PostTitle,
+                    @PostContent,
+                    GETDATE(),
+                    GETDATE()
+                )
+        END
+    ELSE
+        BEGIN
+            UPDATE TutorialAppSchema.Posts
+                    SET PostTitle = @PostTitle,
+                        PostContent = @PostContent,
+                        PostUpdated =GETDATE()
+                    WHERE PostId = @PostId
+        END
+
+
+END
+
+----------------------------------------------------------------------------------
+USE DotNetCourseDatabase
+GO
+
+CREATE OR ALTER PROCEDURE TutorialAppSchema.spRegistration_Upsert
+    @Email NVARCHAR(50),
+    @PasswordHash VARBINARY(MAX),
+    @PasswordSalt VARBINARY(MAX)
+AS
+BEGIN
+    IF NOT EXISTS (SELECT * FROM TutorialAppSchema.Auth  WHERE Email = @Email)
+        BEGIN
+            INSERT INTO TutorialAppSchema.Auth (
+                [Email], 
+                [PasswordHash],
+                [PasswordSalt]
+            ) VALUES(
+                @Email,
+                @PasswordHash,
+                @PasswordSalt
+            )
+        END
+    ELSE
+        BEGIN
+            UPDATE TutorialAppSchema.Auth
+                SET PasswordHash = @PasswordHash,
+                    PasswordSalt = @PasswordSalt
+                WHERE Email = @Email
+
+        END
+
+END
+GO
+
+CREATE OR ALTER PROCEDURE TutorialAppSchema.spLoginConfirmation_Get
+    @Email NVARCHAR(50)
+AS
+BEGIN
+    SELECT [Auth].[PasswordHash],
+           [Auth].[PasswordSalt]
+     FROM TutorialAppSchema.Auth  AS Auth
+        WHERE Auth.Email = @Email
+END
+
+
+%--------------------------------------------- Section 9: API Advanced ----------------------------------------------%
+
+
+
+
+
+
+%--------------------------------------------- Section 10: Azure Deploy----------------------------------------------%
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

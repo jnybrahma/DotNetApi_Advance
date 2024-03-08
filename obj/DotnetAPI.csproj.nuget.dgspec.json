@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Udemy_Course\\dotNet_With_SQL\\projects\\DotNetAPI_Intermediate\\DotnetAPI.csproj": {}
+    "D:\\Udemy_Course\\dotNet_With_SQL\\projects\\DotnetAPI_Advance\\DotnetAPI.csproj": {}
   },
   "projects": {
-    "D:\\Udemy_Course\\dotNet_With_SQL\\projects\\DotNetAPI_Intermediate\\DotnetAPI.csproj": {
+    "D:\\Udemy_Course\\dotNet_With_SQL\\projects\\DotnetAPI_Advance\\DotnetAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Udemy_Course\\dotNet_With_SQL\\projects\\DotNetAPI_Intermediate\\DotnetAPI.csproj",
+        "projectUniqueName": "D:\\Udemy_Course\\dotNet_With_SQL\\projects\\DotnetAPI_Advance\\DotnetAPI.csproj",
         "projectName": "DotnetAPI",
-        "projectPath": "D:\\Udemy_Course\\dotNet_With_SQL\\projects\\DotNetAPI_Intermediate\\DotnetAPI.csproj",
+        "projectPath": "D:\\Udemy_Course\\dotNet_With_SQL\\projects\\DotnetAPI_Advance\\DotnetAPI.csproj",
         "packagesPath": "C:\\Users\\Owner\\.nuget\\packages\\",
-        "outputPath": "D:\\Udemy_Course\\dotNet_With_SQL\\projects\\DotNetAPI_Intermediate\\obj\\",
+        "outputPath": "D:\\Udemy_Course\\dotNet_With_SQL\\projects\\DotnetAPI_Advance\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Owner\\AppData\\Roaming\\NuGet\\NuGet.Config"
