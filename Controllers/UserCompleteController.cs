@@ -32,32 +32,16 @@ public class UserCompleteController : ControllerBase
         {
             parameters += ", @Active=" + isActive.ToString();
         }
+        if (!isActive)
+        {
+            parameters += ", @Active=" + isActive.ToString();
+        }
 
         sql += parameters.Substring(1);//, parameters.Length);
 
         Console.WriteLine(sql);
         IEnumerable<UserComplete> users = _dapper.LoadData<UserComplete>(sql);
         return users;
-
-    }
-
-
-    [HttpGet("GetSingleUser/{userId}")]
-    public User GetSingleUser(int userId)
-    {
-        string sql = @"
-            SELECT  [UserId],
-            [FirstName],
-            [LastName],
-            [Email],
-            [Gender],
-            [Active]
-            FROM  TutorialAppSchema.Users 
-            WHERE UserId = " + userId.ToString();
-
-        User user = _dapper.LoadDataSingle<User>(sql);
-
-        return user;
 
     }
 
@@ -128,16 +112,7 @@ public class UserCompleteController : ControllerBase
 
         throw new Exception("Failed to Delete user");
     }
-    [HttpGet("UserSalary/{userId}")]
-    public IEnumerable<UserSalary> GetUserSalary(int userId)
-    {
-        return _dapper.LoadData<UserSalary>(
-            @"
-            SELECT UserSalary.UserId
-            , UserSalary.Salary
-            FROM   TutorialAppSchema.UserSalary
-            WHERE UserId =  " + userId);
-    }
+
 
     [HttpPost("UserSalary")]
     public IActionResult PostUserSalary(UserSalary userSalaryForInsert)
@@ -184,18 +159,6 @@ public class UserCompleteController : ControllerBase
 
     }
 
-
-    [HttpGet("UserJobInfo/{userId}")]
-    public IEnumerable<UserJobInfo> GetUserJobInfo(int userId)
-    {
-        return _dapper.LoadData<UserJobInfo>(
-            @"
-            SELECT UserJobInfo.UserId
-            , UserJobInfo.JobTitle
-            , UserJobInfo.Department
-            FROM   TutorialAppSchema.UserJobInfo
-            WHERE UserId =  " + userId);
-    }
 
     [HttpPost("UserJobInfo")]
     public IActionResult PostUserJobInfo(UserJobInfo userJobInfoInsert)
