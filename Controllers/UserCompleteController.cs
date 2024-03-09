@@ -18,21 +18,25 @@ public class UserCompleteController : ControllerBase
         _dapper = new DataContextDapper(config);
     }
 
-    [HttpGet("GetUsers")]
-    public IEnumerable<User> GetUsers()
+    [HttpGet("GetUsers/{userId}/{isActive}")]
+    public IEnumerable<UserComplete> GetUsers(int userId, bool isActive)
     {
+        string sql = @"EXEC TutorialAppSchema.spUsers_Get";
+        string parameters = "";
 
-        string sql = @"
-            SELECT  [UserId],
-            [FirstName],
-            [LastName],
-            [Email],
-            [Gender],
-            [Active]
-            FROM  TutorialAppSchema.Users AS Users";
+        if (userId != 0)
+        {
+            parameters += ", @UserId=" + userId.ToString();
+        }
+        if (isActive)
+        {
+            parameters += ", @Active=" + isActive.ToString();
+        }
 
-        IEnumerable<User> users = _dapper.LoadData<User>(sql);
+        sql += parameters.Substring(1);//, parameters.Length);
 
+        Console.WriteLine(sql);
+        IEnumerable<UserComplete> users = _dapper.LoadData<UserComplete>(sql);
         return users;
 
     }
