@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DotnetAPI.Controllers
 {
-    [Authorize]
+    // [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class PostController : ControllerBase
@@ -18,46 +18,30 @@ namespace DotnetAPI.Controllers
             _dapper = new DataContextDapper(config);
         }
 
-        [HttpGet("Posts")]
-        public IEnumerable<Post> GetPosts()
+        [HttpGet("Posts/{postId}/{userId}/{searchParam}")]
+        public IEnumerable<Post> GetPosts(int postId, int userId, string searchParam = "None")
         {
-            string sql = @" SELECT 
-                            [PostId],
-	                        [UserId],
-	                        [PostTitle],
-	                        [PostContent],
-	                        [PostCreated],
-	                        [PostUpdated] FROM TutorialAppSchema.Posts";
+            string sql = @"EXEC TutorialAppSchema.spPosts_Get";
+            string parameters = "";
 
-            return _dapper.LoadData<Post>(sql);
+            if (postId != 0)
+            {
+                parameters += ", @PostId=" + postId.ToString();
+            }
+            if (userId != 0)
+            {
+                parameters += ", @UserId=" + userId.ToString();
+            }
+            if (searchParam != "None")
+            {
+                parameters += ", @SearchValue='" + searchParam + "'";
+            }
 
-        }
+            if (parameters.Length > 0)
+            {
+                sql += parameters.Substring(1);
+            }
 
-        [HttpGet("PostSingle/{postId}")]
-        public Post GetPostSingle(int postId)
-        {
-            string sql = @" SELECT[PostId],
-	                        [UserId],
-	                        [PostTitle],
-	                        [PostContent],
-	                        [PostCreated],
-	                        [PostUpdated] FROM TutorialAppSchema.Posts
-                            WHERE PostId = " + postId.ToString();
-
-            return _dapper.LoadDataSingle<Post>(sql);
-
-        }
-
-        [HttpGet("PostsByUser/{userId}")]
-        public IEnumerable<Post> GetPostsByUser(int userId)
-        {
-            string sql = @" SELECT[PostId],
-	                        [UserId],
-	                        [PostTitle],
-	                        [PostContent],
-	                        [PostCreated],
-	                        [PostUpdated] FROM TutorialAppSchema.Posts
-                            WHERE PostId = " + userId.ToString();
 
             return _dapper.LoadData<Post>(sql);
 
@@ -77,23 +61,6 @@ namespace DotnetAPI.Controllers
             return _dapper.LoadData<Post>(sql);
 
         }
-
-        [HttpGet("PostsBySearch/{searchParam}")]
-        public IEnumerable<Post> PostsBySearch(string searchParam)
-        {
-            string sql = @" SELECT[PostId],
-	                        [UserId],
-	                        [PostTitle],
-	                        [PostContent],
-	                        [PostCreated],
-	                        [PostUpdated] FROM TutorialAppSchema.Posts
-                            WHERE PostTitle LIKE '%" + searchParam + "%'" +
-                                " OR PostContent LIKE '%" + searchParam + "%'";
-
-            return _dapper.LoadData<Post>(sql);
-
-        }
-
 
         [HttpPost("Post")]
         public IActionResult AddPost(PostToAddDto postToAdd)
