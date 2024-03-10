@@ -56,16 +56,16 @@ namespace DotnetAPI.Controllers
 
         }
 
-        [HttpPut("Post")]
-        public IActionResult AddPost(Post postToAdd)
+        [HttpPut("UpsertPost")]
+        public IActionResult UpsertPost(Post postToUpsert)
         {
             string sql = @" EXEC TutorialAppSchema.spPosts_Upsert
                     @UserId = " + this.User.FindFirst("userId")?.Value +
-                    ", @PostTitle ='" + postToAdd.PostTitle +
-                    "', @PostContent='" + postToAdd.PostContent + "'";
-            if (postToAdd.PostId > 0)
+                    ", @PostTitle ='" + postToUpsert.PostTitle +
+                    "', @PostContent='" + postToUpsert.PostContent + "'";
+            if (postToUpsert.PostId > 0)
             {
-                sql += ", @PostId = " + postToAdd.PostId;
+                sql += ", @PostId = " + postToUpsert.PostId;
 
             }
 
@@ -73,7 +73,7 @@ namespace DotnetAPI.Controllers
             {
                 return Ok();
             }
-            throw new Exception("Failed to create post!");
+            throw new Exception("Failed to Upsert post!");
         }
 
         //[AllowAnonymous]
