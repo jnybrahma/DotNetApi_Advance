@@ -77,26 +77,6 @@ namespace DotnetAPI.Controllers
         }
 
         //[AllowAnonymous]
-        [HttpPut("Post")]
-        public IActionResult EditPost(PostToEditDtos postToEdit)
-        {
-            string sql = @"
-                    UPDATE TutorialAppSchema.Posts 
-	                    SET PostContent = '" + postToEdit.PostContent +
-                        "', PostTitle = '" + postToEdit.PostTitle +
-                        @"', PostUpdated = GETDATE() 
-                            WHERE PostId =  " + postToEdit.PostId.ToString() +
-                            "AND UserId = " + this.User.FindFirst("userId")?.Value;
-
-            // this.User.FindFirst("userId")?.Value
-
-            if (_dapper.ExecuteSql(sql))
-            {
-                return Ok();
-            }
-            throw new Exception("Failed to Edit Update post!");
-        }
-
         [HttpDelete("Post/{postId}")]
         public IActionResult DeletePost(int postId)
         {
