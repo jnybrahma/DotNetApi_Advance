@@ -50,7 +50,7 @@ namespace DotnetAPI.Controllers
         [HttpGet("MyPosts")]
         public IEnumerable<Post> GetMyPosts()
         {
-            string sql = @" EXEC TutorialAppSchema.spPosts_Get @UserId = " + this.User.FindFirst("userId")?.Value;
+            string sql = @"EXEC TutorialAppSchema.spPosts_Get @UserId = " + this.User.FindFirst("userId")?.Value;
 
             return _dapper.LoadData<Post>(sql);
 
@@ -59,7 +59,7 @@ namespace DotnetAPI.Controllers
         [HttpPut("UpsertPost")]
         public IActionResult UpsertPost(Post postToUpsert)
         {
-            string sql = @" EXEC TutorialAppSchema.spPosts_Upsert
+            string sql = @"EXEC TutorialAppSchema.spPosts_Upsert
                     @UserId = " + this.User.FindFirst("userId")?.Value +
                     ", @PostTitle ='" + postToUpsert.PostTitle +
                     "', @PostContent='" + postToUpsert.PostContent + "'";
