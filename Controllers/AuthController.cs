@@ -75,19 +75,28 @@ namespace DotnetAPI.Controllers
 
                     if (_dapper.ExecuteSqlWithParameters(sqlAddAuth, sqlParameters))
                     {
-                        string sqlAddUser = @"
-                            INSERT INTO TutorialAppSchema.Users (
-                            [FirstName],
-                            [LastName],
-                            [Email],
-                            [Gender],
-                            [Active] )
-                         VALUES (" +
-                         "'" + userForRegistration.FirstName +
-                        "', '" + userForRegistration.LastName +
-                        "', '" + userForRegistration.Email +
-                        "', '" + userForRegistration.Gender +
-                        "', 1)";
+                        string sqlAddUser = @"EXEC TutorialAppSchema.spUser_Upsert
+                            @FirstName = '" + userForRegistration.FirstName +
+                            "',@LastName = '" + userForRegistration.LastName +
+                            "',@Email = '" + userForRegistration.Email +
+                            "',@Gender = '" + userForRegistration.Gender +
+                            "',@Active = 1" +
+                            ",@JobTitle = '" + userForRegistration.JobTitle +
+                            "',@Department = '" + userForRegistration.Department +
+                            "',@Salary = '" + userForRegistration.Salary + "'";
+                        // string sqlAddUser = @"
+                        //     INSERT INTO TutorialAppSchema.Users (
+                        //     [FirstName],
+                        //     [LastName],
+                        //     [Email],
+                        //     [Gender],
+                        //     [Active] )
+                        //  VALUES (" +
+                        //  "'" + userForRegistration.FirstName +
+                        // "', '" + userForRegistration.LastName +
+                        // "', '" + userForRegistration.Email +
+                        // "', '" + userForRegistration.Gender +
+                        // "', 1)";
                         if (_dapper.ExecuteSql(sqlAddUser))
                         {
                             return Ok();
