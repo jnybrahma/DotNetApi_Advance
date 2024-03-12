@@ -46,34 +46,15 @@ namespace DotnetAPI.Controllers
 
                 if (existingUsers.Count() == 0)
                 {
-                    byte[] passwordSalt = new byte[128 / 8];
-                    using (RandomNumberGenerator rng = RandomNumberGenerator.Create())
+
+
+                    UserForLoginDto userForSetPassword = new UserForLoginDto()
                     {
-                        rng.GetNonZeroBytes(passwordSalt);
-                    }
+                        Email = userForRegistration.Email,
+                        Password = userForRegistration.Password
 
-                    byte[] passwordHash = _authHelper.GetPasswordHash(userForRegistration.Password, passwordSalt);
-
-                    string sqlAddAuth = @"EXEC TutorialAppSchema.spRegistration_Upsert
-                         @Email = @EmailParam,
-                         @PasswordHash = @PasswordHashParam,
-                         @PasswordSalt = @PasswordSaltParam";
-
-                    List<SqlParameter> sqlParameters = new List<SqlParameter>();
-
-                    SqlParameter emailParameter = new SqlParameter("@EmailParam", SqlDbType.VarChar);
-                    emailParameter.Value = userForRegistration.Email;
-                    sqlParameters.Add(emailParameter);
-
-                    SqlParameter passwordHashParameter = new SqlParameter("@PasswordHashParam", SqlDbType.VarBinary);
-                    passwordHashParameter.Value = passwordHash;
-                    sqlParameters.Add(passwordHashParameter);
-
-                    SqlParameter passwordSaltParameter = new SqlParameter("@PasswordSaltParam", SqlDbType.VarBinary);
-                    passwordSaltParameter.Value = passwordSalt;
-                    sqlParameters.Add(passwordSaltParameter);
-
-                    if (_dapper.ExecuteSqlWithParameters(sqlAddAuth, sqlParameters))
+                    };
+                    if (_authHelper.SetPassword(userForSetPassword))
                     {
                         string sqlAddUser = @"EXEC TutorialAppSchema.spUser_Upsert
                             @FirstName = '" + userForRegistration.FirstName +
@@ -113,6 +94,17 @@ namespace DotnetAPI.Controllers
 
             throw new Exception("Password do not match");
 
+        }
+
+        [HttpPut("ResetPassword")]
+        public IActionResult ResetPassword(UserForLoginDto userForSetPassword)
+        {
+            if (_authHelper.SetPassword(userForSetPassword))
+            {
+                return Ok();
+
+            }
+            throw new Exception("Failed to update password");
         }
 
         [AllowAnonymous]
