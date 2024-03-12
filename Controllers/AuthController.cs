@@ -57,7 +57,7 @@ namespace DotnetAPI.Controllers
                     string sqlAddAuth = @"EXEC TutorialAppSchema.spRegistration_Upsert
                          @Email = @EmailParam,
                          @PasswordHash = @PasswordHashParam,
-                         @PasswordSalt = @PasswordSaltParam)";
+                         @PasswordSalt = @PasswordSaltParam";
 
                     List<SqlParameter> sqlParameters = new List<SqlParameter>();
 
