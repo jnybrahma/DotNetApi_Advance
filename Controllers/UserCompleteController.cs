@@ -1,3 +1,4 @@
+using Dapper;
 using DotnetAPI.Data;
 using DotnetAPI.Dtos;
 using DotnetAPI.Models;
@@ -23,6 +24,7 @@ public class UserCompleteController : ControllerBase
     {
         string sql = @"EXEC TutorialAppSchema.spUsers_Get";
         string parameters = "";
+        DynamicParameters sqlParameters = new DynamicParameters();
 
         if (userId != 0)
         {
