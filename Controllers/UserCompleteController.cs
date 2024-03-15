@@ -84,7 +84,7 @@ public class UserCompleteController : ControllerBase
 
         Console.WriteLine(sql);
 
-        if (_dapper.ExecuteSql(sql))
+        if (_dapper.ExecuteSqlWithParameters(sql, sqlParameters))
         {
             return Ok();
         }
@@ -97,11 +97,13 @@ public class UserCompleteController : ControllerBase
     public IActionResult DeleteUser(int userId)
     {
         string sql = @"EXEC  TutorialAppSchema.spUser_Delete
-                @UserId = " + userId.ToString();
+                @UserId = @UserIdParameter";
 
         Console.WriteLine(sql);
 
-        if (_dapper.ExecuteSql(sql))
+        DynamicParameters sqlParameters = new DynamicParameters();
+        sqlParameters.Add("@UserIdParameter", userId, DbType.Int32);
+        if (_dapper.ExecuteSqlWithParameters(sql, sqlParameters))
         {
             return Ok();
         }
