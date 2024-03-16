@@ -60,7 +60,7 @@ namespace DotnetAPI.Controllers
         {
             string sql = @"EXEC TutorialAppSchema.spPosts_Get @UserId = @UserIdParameter";
             DynamicParameters sqlParameters = new DynamicParameters();
-            sqlParameters.Add("@UserIdParameter", this.User.FindFirst("userId")?.Value);
+            sqlParameters.Add("@UserIdParameter", this.User.FindFirst("userId")?.Value, DbType.Int32);
 
 
             return _dapper.LoadDataWithParameters<Post>(sql, sqlParameters);
@@ -76,7 +76,7 @@ namespace DotnetAPI.Controllers
                     @PostContent= @PostContentParameter";
 
             DynamicParameters sqlParameters = new DynamicParameters();
-            sqlParameters.Add("@UserIdParameter", this.User.FindFirst("userId")?.Value);
+            sqlParameters.Add("@UserIdParameter", this.User.FindFirst("userId")?.Value, DbType.Int32);
             sqlParameters.Add("@PostTitleParemeter", postToUpsert.PostTitle, DbType.String);
             sqlParameters.Add("@PostContentParemeter", postToUpsert.PostContent, DbType.String);
 
@@ -104,7 +104,7 @@ namespace DotnetAPI.Controllers
                         @PostId =@PostIdParameter";
 
             DynamicParameters sqlParameters = new DynamicParameters();
-            sqlParameters.Add("@UserIdParameter", this.User.FindFirst("userId")?.Value);
+            sqlParameters.Add("@UserIdParameter", this.User.FindFirst("userId")?.Value, DbType.Int32);
             sqlParameters.Add("@PostIdParemeter", postId, DbType.Int32);
 
 
