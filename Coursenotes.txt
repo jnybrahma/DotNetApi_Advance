@@ -1076,6 +1076,10 @@ This code snippet will use the same logic from to ensure that the string returne
 (base) PS D:\Udemy_Course\dotNet_With_SQL\projects\DotNetAPI_Intermediate>  dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
 
 
+>> git branch -M master
+>> git remote add origin https://github.com/jnybrahma/DotNetApi_Intermediate.git
+>> git push -u origin master
+
 -------------------------------------------------------------------------------------------------------------
 
 http://localhost:5000/User/GetUsers
@@ -1669,15 +1673,73 @@ BEGIN
         WHERE Auth.Email = @Email
 END
 
+-------------------------------------------------------------------------------------------------------------------
+
+Stored Procedures Script
+If you skipped the Stored Procedure Lectures, run this script in Azure Data Studio to prepare your database for the lectures to come:
+
+https://drive.google.com/file/d/151qegkelA4MFiPkD5rITxBxsSCQZuZpW/view?usp=share_link
+
 
 %--------------------------------------------- Section 9: API Advanced ----------------------------------------------%
 
+- Stored Procedures	
+	- Consolidated Endpoints
+- Update Password
+- SQL Parameters
 
 
+http://localhost:5000/swagger/index.html
+
+
+http://localhost:5000/Auth/Login
+
+
+GET: http://localhost:5000/Post/MyPosts
+
+
+GET: http://localhost:5000/Post/MyPosts/0/0/None
+
+PUT : http://localhost:5000/Post/UpsertPost
+
+>> git branch -M master
+>> git remote add origin https://github.com/jnybrahma/DotNetApi_Advance.git
+>> git push -u origin master
 
 
 
 %--------------------------------------------- Section 10: Azure Deploy----------------------------------------------%
+
+
+## Azure App Service:
+
+
+
+## Azure Database Creation
+
+
+
+
+## Azure SQL Seed
+
+
+
+
+## Azure Database Connections
+
+
+
+
+## Azure Deploy With Database Connections
+
+
+
+
+## Delete Azure Resource
+
+
+
+
 
 
 
